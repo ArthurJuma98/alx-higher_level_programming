@@ -1,14 +1,12 @@
-
-"""
-Class to JSON module
-"""
+#!/usr/bin/python3
+"""Defines a function that returns a class's serializable dict elements"""
 
 
 def class_to_json(obj):
-    """Returns the dictionary decription of an object"""
-    attribs = dir(obj)
-    res = {}
-    for a in attribs:
-        if obj.__getattribute__(a):
-            res[a] = obj.__getattribute__(a)
-    return res
+    """Returns a class's serializable dict elements as a dict"""
+    retdict = {}
+    objdict = obj.__dict__
+    for ele in objdict:
+        if type(objdict[ele]) in [list, dict, str, int, bool]:
+            retdict[ele] = objdict[ele]
+    return retdict

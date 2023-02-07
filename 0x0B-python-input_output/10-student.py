@@ -1,33 +1,28 @@
-
-"""
-Student definition module
-"""
+#!/usr/bin/python3
+"""Student class"""
 
 
 class Student:
-    """A student definition class"""
-    def __init__(self, first_name, last_name, age):
-        self.first_name = first_name
-        self.last_name = last_name
+    """Student class"""
+
+    def __init__(self, first, last, age):
+        self.first_name = first
+        self.last_name = last
         self.age = age
 
     def to_json(self, attrs=None):
-        """Retrieves a dictionary representation of a ``Student``.
-        Args:
-            attrs (:obj:`list` of `str`, optional): The list of attributes
-                                                    to retrieve.
-        Returns:
-            (`dict`)
-        """
-        d = {}
-        if attrs:
-            for a in attrs:
-                try:
-                    d[a] = self.__getattribute__(a)
-                except Exception:
-                    pass
-        else:
-            d['first_name'] = self.first_name
-            d['last_name'] = self.last_name
-            d['age'] = self.age
-        return d
+        """Returns student's serializable dict elements as a dict"""
+        filterattr = 0
+        if type(attrs) == list:
+            filterattr = 1
+            for x in attrs:
+                if type(x) is not str:
+                    filterattr = 0
+                    break
+        retdict = {}
+        objdict = self.__dict__
+        for ele in objdict:
+            if type(objdict[ele]) in [list, dict, str, int, bool]:
+                if filterattr == 0 or ele in attrs:
+                    retdict[ele] = objdict[ele]
+        return retdict
