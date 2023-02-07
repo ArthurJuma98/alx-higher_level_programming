@@ -1,8 +1,17 @@
 #!/usr/bin/python3
-"""Defined a list class with member function that prints a sorted list"""
+
+"""
+MyList module
+"""
 
 
 class MyList(list):
+    """A class that inherits from `list`"""
+    def __init__(self, *args, **kwargs):
+        """Construct ``MyList`` instances."""
+        super(list).__init__(*args, **kwargs)
+
     def print_sorted(self):
-        """Prints MyList, sorted"""
-        print(sorted(self))
+        """Prints the sorted list(ascending sort)"""
+        super(list).sort()
+        print(self)
